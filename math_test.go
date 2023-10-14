@@ -28,3 +28,25 @@ func TestAdd(t *testing.T) {
 	// 	t.Fail()
 	// }
 }
+
+func TestWithHierarchical(t *testing.T) {
+
+	t.Run("a=positive", func(t *testing.T) {
+		a := 10
+		t.Run("b=positive", func(t *testing.T) {
+			result := Add(a, 5)
+			if result != 15 {
+				t.Logf("Expected %d, got %d", result, 15)
+				t.Fail()
+			}
+		})
+
+		t.Run("b=negative", func(t *testing.T) {
+			result := Add(a, -5)
+			if result != 5 {
+				t.Logf("Expected %d, got %d", result, 5)
+				t.Fail()
+			}
+		})
+	})
+}
