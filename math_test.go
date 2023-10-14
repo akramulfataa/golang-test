@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
 func TestAdd(t *testing.T) {
 
@@ -21,12 +24,6 @@ func TestAdd(t *testing.T) {
 			t.Fail()
 		}
 	}
-
-	// result := Add(1, 2)
-	// if result != 3 {
-	// 	t.Logf("Expected %d, got %d", result, 3)
-	// 	t.Fail()
-	// }
 }
 
 func TestWithHierarchical(t *testing.T) {
@@ -40,7 +37,6 @@ func TestWithHierarchical(t *testing.T) {
 				t.Fail()
 			}
 		})
-
 		t.Run("b=negative", func(t *testing.T) {
 			result := Add(a, -5)
 			if result != 5 {
@@ -49,4 +45,15 @@ func TestWithHierarchical(t *testing.T) {
 			}
 		})
 	})
+}
+
+func TestSkip(t *testing.T) {
+	t.Skip("test ini kita skip")
+}
+
+func TestConnectToDb(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skip because calling db  is way to long")
+	}
+	<-time.After(3 * time.Second)
 }
